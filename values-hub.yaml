@@ -87,12 +87,25 @@ clusterGroup:
 
     openstack-prereq-operators-installation:
       name: openstack-prereq-operators-installation
-      namespace: openshift-gitops-operator
+      namespace: openshift-gitops
       repoURL: 'https://github.com/rh-osp-demo/showroom_osp-on-ocp.git'
       project: hub
       kustomize: true
       targetRevision: HEAD
       path: content/files/manifests/pre-reqs-operators
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: false
+
+    openstack-operators-installation:
+      name: openstack-operators-installation
+      namespace: openshift-gitops
+      repoURL: 'https://github.com/rh-osp-demo/showroom_osp-on-ocp.git'
+      targetRevision: HEAD
+      path: content/files/manifests/openstack-operators-installation
+      project: hub
+      kustomize: true
       syncPolicy:
         automated:
           prune: true
