@@ -96,8 +96,6 @@ clusterGroup:
         automated:
           prune: true
           selfHeal: false
-        syncOptions:
-        - CreateNamespace: true
 
   imperative: {}
   managedClusterGroups: {}
