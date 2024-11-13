@@ -13,25 +13,6 @@ clusterGroup:
         labels:
           pod-security.kubernetes.io/enforce: privileged
           security.openshift.io/scc.podSecurityLabelSync: "false"
-    - cert-manager-operator:
-        operatorGroup: true
-        targetNamespaces:
-          - cert-manager-operator
-        labels:
-          pod-security.kubernetes.io/enforce: privileged
-          security.openshift.io/scc.podSecurityLabelSync: "false"
-        annotations:
-          argocd.argoproj.io/sync-wave: "-1"
-    - metallb-system:
-        operatorGroup: true
-        annotations:
-          argocd.argoproj.io/sync-wave: "-1"
-    - openshift-nmstate:
-        operatorGroup: true
-        targetNamespaces:
-        - openshift-nmstate
-        annotations:
-          argocd.argoproj.io/sync-wave: "-1"
 
   subscriptions:
     acm:
