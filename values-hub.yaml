@@ -90,6 +90,7 @@ clusterGroup:
       namespace: openshift-gitops-operator
       repoURL: 'https://github.com/rh-osp-demo/showroom_osp-on-ocp.git'
       project: hub
+      kustomize: true
       targetRevision: HEAD
       path: content/files/manifests/pre-reqs-operators
       syncPolicy:

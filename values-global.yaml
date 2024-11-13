@@ -5,6 +5,8 @@ global:
     useCSV: false
     syncPolicy: Automatic
     installPlanApproval: Automatic
+  clusterDomain: apps.kf8xz.dynamic.redhatworkshops.io
+  localClusterDomain: apps.kf8xz.dynamic.redhatworkshops.io
 main:
   clusterGroupName: openstack-on-openshift
   multiSourceConfig:
