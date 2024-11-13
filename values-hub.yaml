@@ -85,13 +85,17 @@ clusterGroup:
       chart: golang-external-secrets
       chartVersion: 0.1.*
 
-    openstack-operators-installation:
-      name: openstack-operators-installation
+    openstack-prereq-operators-installation:
+      name: openstack-prereq-operators-installation
       namespace: openshift-gitops-operator
       repoURL: 'https://github.com/rh-osp-demo/showroom_osp-on-ocp.git'
+      project: hub
       targetRevision: HEAD
-      path: content/files/manifests/openstack-operators-installation
+      path: content/files/manifests/pre-reqs-operators
       syncPolicy:
+        automated:
+          prune: true
+          selfHeal: false
         syncOptions:
         - CreateNamespace: true
 
