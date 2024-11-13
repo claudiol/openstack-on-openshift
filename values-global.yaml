@@ -6,7 +6,7 @@ global:
     syncPolicy: Automatic
     installPlanApproval: Automatic
 main:
-  clusterGroupName: hub
+  clusterGroupName: openstack-on-openshift
   multiSourceConfig:
     enabled: true
     clusterGroupChartVersion: "0.9.*"
