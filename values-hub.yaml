@@ -92,5 +92,18 @@ clusterGroup:
           prune: true
           selfHeal: false
 
+    openstack-network-configuration:
+      name: openstack-network-configuration
+      namespace: openshift-gitops
+      repoURL: 'https://github.com/rh-osp-demo/showroom_osp-on-ocp.git'
+      targetRevision: HEAD
+      path: content/files/manifests/network-configuration
+      project: hub
+      kustomize: true
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: false
+
   imperative: {}
   managedClusterGroups: {}
