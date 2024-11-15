@@ -13,6 +13,12 @@ clusterGroup:
         labels:
           pod-security.kubernetes.io/enforce: privileged
           security.openshift.io/scc.podSecurityLabelSync: "false"
+    - openstack:
+        operatorGroup: true
+        annotations:
+          argocd.argoproj.io/sync-wave: '-1'
+        labels:
+          argocd.argoproj.io/instance: openstack-network-configuration
 
   subscriptions:
     acm:
