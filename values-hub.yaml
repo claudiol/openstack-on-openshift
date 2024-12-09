@@ -72,6 +72,8 @@ clusterGroup:
       chart: golang-external-secrets
       chartVersion: 0.1.*
 
+    nmstate-config:
+      name: nmstate
     openstack-prereq-operators-installation:
       name: openstack-prereq-operators-installation
       namespace: openshift-gitops
