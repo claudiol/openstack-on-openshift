@@ -1,0 +1,17 @@
+---
+# tasks file for rh-osp-demo-prereqs
+- name: "[DEMO PreReqs] Create nmstate namespace"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: openshift-nmstate
+        labels:
+          kubernetes.io/metadata.name: openshift-nmstate
+          name: openshift-nmstate
+      spec:
+        finalizers:
+          - kubernetes
+
