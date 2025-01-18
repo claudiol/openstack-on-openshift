@@ -47,3 +47,9 @@
         name: kubernetes-nmstate-operator
         source: redhat-operators
         sourceNamespace: openshift-marketplace
+
+- name: "[DEMO PreReqs] Wait for nmstate operator"
+  ansible.builtin.command: 
+    cmd: 'oc get clusterserviceversion -n openshift-nmstate  -o custom-columns=Name:.metadata.name,Phase:.status.phase'
+  register: output
+  until: "Succeeded" in output.stdout
