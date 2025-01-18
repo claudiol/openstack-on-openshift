@@ -1,5 +1,5 @@
 ---
 # tasks file for rh-osp-demo-prereqs
 - name: "[DEMO PreReqs] Create nmstate namespace"
-  import_tasks: nmstate-ns.yml
+  import_tasks: nmstate.yml
 
