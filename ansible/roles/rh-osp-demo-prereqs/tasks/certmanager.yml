@@ -1,0 +1,42 @@
+# tasks file for rh-osp-demo-prereqs/certmanager
+- name: "[CERTMANAGER] Create certmanager namespace"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: cert-manager-operator
+
+- name: "[CERTMANAGER] Create certmanager operator group"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: operators.coreos.com/v1
+      kind: OperatorGroup
+      metadata:
+        name: cert-manager-operator
+        namespace: cert-manager-operator
+
+- name: "[CERTMANAGER] Create certmanager operator"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: operators.coreos.com/v1
+      kind: OperatorGroup
+      metadata:
+        name: cert-manager-operator
+        namespace: cert-manager-operator
+      spec:
+        targetNamespaces:
+        - cert-manager-operator
+        upgradeStrategy: Default
+
+- name: "[CERTMANAGER] Wait and confirm status for certmanager operator"
+  ansible.builtin.command: 
+    cmd: 'oc get clusterserviceversion -n cert-manager-operator -o custom-columns=Name:.metadata.name,Phase:.status.phase'
+  register: output
+  until: 'output.stdout_lines[1] and "Succeeded" in output.stdout_lines[1]'
+  retries: 10
+  delay: 2
+
