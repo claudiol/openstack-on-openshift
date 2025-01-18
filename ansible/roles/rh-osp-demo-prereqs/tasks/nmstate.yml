@@ -1,6 +1,6 @@
 ---
-# tasks file for rh-osp-demo-prereqs
-- name: "[DEMO PreReqs] Create nmstate namespace"
+# tasks file for rh-osp-demo-prereqs/nmstate
+- name: "[NMSTATE] Create nmstate namespace"
   kubernetes.core.k8s:
     state: present
     definition:
@@ -15,7 +15,7 @@
         finalizers:
           - kubernetes
 
-- name: "[DEMO PreReqs] Create nmstate operator group"
+- name: "[NMSTATE] Create nmstate operator group"
   kubernetes.core.k8s:
     state: present
     definition:
@@ -30,7 +30,7 @@
         targetNamespaces:
           - openshift-nmstate
 
-- name: "[DEMO PreReqs] Deploy nmstate operator"
+- name: "[NMSTATE] Deploy nmstate operator"
   kubernetes.core.k8s:
     state: present
     definition:
@@ -48,8 +48,19 @@
         source: redhat-operators
         sourceNamespace: openshift-marketplace
 
-- name: "[DEMO PreReqs] Wait for nmstate operator"
+- name: "[NMSTATE] Create nmstate instance of the nmstate operator"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: nmstate.io/v1
+      kind: NMState
+      metadata:
+        name: nmstate
+
+- name: "[NMSTATE] Wait and confirm status for nmstate operator"
   ansible.builtin.command: 
     cmd: 'oc get clusterserviceversion -n openshift-nmstate  -o custom-columns=Name:.metadata.name,Phase:.status.phase'
   register: output
   until: '"Succeeded" in output.stdout_lines[1]'
+  retries: 10
+  delay: 2
