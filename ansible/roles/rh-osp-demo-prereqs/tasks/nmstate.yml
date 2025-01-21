@@ -61,6 +61,6 @@
   ansible.builtin.command: 
     cmd: 'oc get clusterserviceversion -n openshift-nmstate  -o custom-columns=Name:.metadata.name,Phase:.status.phase'
   register: output
-  until: '"Succeeded" in output.stdout_lines[1]'
+  until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
   retries: 10
   delay: 2
