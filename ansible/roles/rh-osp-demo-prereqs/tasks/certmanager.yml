@@ -45,7 +45,7 @@
     cmd: 'oc get pods -n cert-manager'
   register: output
   until: 'output.rc == 0'
-  retries: 10
+  retries: 40
   delay: 2
 
 - name: "[CERTMANAGER] Wait and confirm status for certmanager operator"
@@ -53,6 +53,6 @@
     cmd: 'oc get clusterserviceversion -n cert-manager-operator -o custom-columns=Name:.metadata.name,Phase:.status.phase'
   register: output
   until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
-  retries: 10
+  retries: 40
   delay: 2
 

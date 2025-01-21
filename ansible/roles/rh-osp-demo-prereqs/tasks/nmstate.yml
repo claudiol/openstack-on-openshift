@@ -48,6 +48,14 @@
         source: redhat-operators
         sourceNamespace: openshift-marketplace
 
+- name: "[NMSTATE] Wait and confirm status for nmstate operator"
+  ansible.builtin.command: 
+    cmd: 'oc get clusterserviceversion -n openshift-nmstate  -o custom-columns=Name:.metadata.name,Phase:.status.phase'
+  register: output
+  until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
+  retries: 40
+  delay: 2
+
 - name: "[NMSTATE] Create nmstate instance of the nmstate operator"
   kubernetes.core.k8s:
     state: present
@@ -56,11 +64,3 @@
       kind: NMState
       metadata:
         name: nmstate
-
-- name: "[NMSTATE] Wait and confirm status for nmstate operator"
-  ansible.builtin.command: 
-    cmd: 'oc get clusterserviceversion -n openshift-nmstate  -o custom-columns=Name:.metadata.name,Phase:.status.phase'
-  register: output
-  until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
-  retries: 10
-  delay: 2
