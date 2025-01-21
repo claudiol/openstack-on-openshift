@@ -46,7 +46,7 @@
   register: output
   until: 'output.rc == 0'
   retries: 40
-  delay: 2
+  delay: 4
 
 - name: "[CERTMANAGER] Wait and confirm status for certmanager operator"
   ansible.builtin.command: 
@@ -54,5 +54,5 @@
   register: output
   until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
   retries: 40
-  delay: 2
+  delay: 4
 

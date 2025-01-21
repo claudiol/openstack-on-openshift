@@ -54,7 +54,7 @@
   register: output
   until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
   retries: 40
-  delay: 2
+  delay: 4
 
 - name: "[NMSTATE] Create nmstate instance of the nmstate operator"
   kubernetes.core.k8s:

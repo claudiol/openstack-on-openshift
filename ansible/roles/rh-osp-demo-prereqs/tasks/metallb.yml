@@ -39,7 +39,7 @@
   register: output
   until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
   retries: 40
-  delay: 2
+  delay: 4
 
 - name: "[METALLB] Create metallb instance resource"
   kubernetes.core.k8s:
@@ -60,7 +60,7 @@
   register: output
   until: '(output.stdout_lines | length > 1) and "1" in output.stdout_lines[1]'
   retries: 40
-  delay: 2
+  delay: 4
 
 - name: "[METALLB] Wait and confirm status for metallb daemonset speaker"
   ansible.builtin.command: 
@@ -68,4 +68,4 @@
   register: output
   until: '(output.stdout_lines | length > 1) and "3" in output.stdout_lines[1]'
   retries: 40
-  delay: 2
+  delay: 4
