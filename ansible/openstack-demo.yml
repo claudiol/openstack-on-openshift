@@ -1,4 +1,0 @@
-- hosts: localhost
-  
-  roles:
-    - rh-osp-demo-prereqs 
