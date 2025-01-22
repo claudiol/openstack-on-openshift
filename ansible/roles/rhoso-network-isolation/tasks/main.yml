@@ -1,2 +1,9 @@
 ---
 # tasks file for rhoso-network-isolation
+- name: "[DEMO OpenStack Network Isolation Worker 1] Create openstack network isolation resources"
+  import_tasks: rhoso-ng-nncp-w1.yml
+- name: "[DEMO OpenStack Network Isolation Worker 2] Create openstack network isolation resources"
+  import_tasks: rhoso-ng-nncp-w2.yml
+- name: "[DEMO OpenStack Network Isolation Worker 3] Create openstack network isolation resources"
+  import_tasks: rhoso-ng-nncp-w3.yml
+
