@@ -2,3 +2,4 @@
   
   roles:
     - rhoso-prereqs 
+    - rhoso-openstack-operator-deploy

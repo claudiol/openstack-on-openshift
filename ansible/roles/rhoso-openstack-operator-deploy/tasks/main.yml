@@ -1,0 +1,4 @@
+---
+# tasks file for rh-osp-demo-openstack-operator-deploy
+- name: "[DEMO OpenStack Operator] Create openstack operator resources"
+  import_tasks: openstack-operator-deploy.yml
