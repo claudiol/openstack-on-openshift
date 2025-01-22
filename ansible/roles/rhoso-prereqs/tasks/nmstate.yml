@@ -1,0 +1,66 @@
+---
+# tasks file for rh-osp-demo-prereqs/nmstate
+- name: "[NMSTATE] Create nmstate namespace"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: openshift-nmstate
+        labels:
+          kubernetes.io/metadata.name: openshift-nmstate
+          name: openshift-nmstate
+      spec:
+        finalizers:
+          - kubernetes
+
+- name: "[NMSTATE] Create nmstate operator group"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: operators.coreos.com/v1
+      kind: OperatorGroup
+      metadata:
+        name: openshift-nmstate
+        namespace: openshift-nmstate
+        annotations:
+          olm.providedAPIs: NMState.v1.nmstate.io
+      spec:
+        targetNamespaces:
+          - openshift-nmstate
+
+- name: "[NMSTATE] Deploy nmstate operator"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: operators.coreos.com/v1alpha1
+      kind: Subscription
+      metadata:
+        labels:
+          operators.coreos.com/kubernetes-nmstate-operator.openshift-nmstate: ""
+        name: kubernetes-nmstate-operator
+        namespace: openshift-nmstate
+      spec:
+        channel: stable
+        installPlanApproval: Automatic
+        name: kubernetes-nmstate-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+
+- name: "[NMSTATE] Wait and confirm status for nmstate operator"
+  ansible.builtin.command: 
+    cmd: 'oc get clusterserviceversion -n openshift-nmstate  -o custom-columns=Name:.metadata.name,Phase:.status.phase'
+  register: output
+  until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
+  retries: 40
+  delay: 4
+
+- name: "[NMSTATE] Create nmstate instance of the nmstate operator"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: nmstate.io/v1
+      kind: NMState
+      metadata:
+        name: nmstate
