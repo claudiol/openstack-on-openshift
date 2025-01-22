@@ -1,9 +1,0 @@
----
-# tasks file for rh-osp-demo-prereqs
-- name: "[DEMO PreReqs] Create nmstate resources"
-  import_tasks: nmstate.yml
-- name: "[DEMO PreReqs] Create metallb resources "
-  import_tasks: metallb.yml
-- name: "[DEMO PreReqs] Create metallb resources "
-  import_tasks: certmanager.yml
-
