@@ -1,0 +1,65 @@
+---
+# tasks file for rhoso-ng-attach
+- name: "[L2 Advertisements] ctlplane network L2 Advertisements"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: metallb.io/v1beta1
+      kind: L2Advertisement
+      metadata:
+        name: ctlplane
+        namespace: metallb-system
+      spec:
+        ipAddressPools:
+        - ctlplane
+        interfaces:
+        - enp1s0
+  tags: rhoso-ng-l2-advertisements
+
+- name: "[L2 Advertisements] internalapi network L2 Advertisements"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: metallb.io/v1beta1
+      kind: L2Advertisement
+      metadata:
+        name: internalapi
+        namespace: metallb-system
+      spec:
+        ipAddressPools:
+        - internalapi
+        interfaces:
+        - enp1s0.20
+  tags: rhoso-ng-l2-advertisements
+
+- name: "[L2 Advertisements] storage network L2 Advertisements"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: metallb.io/v1beta1
+      kind: L2Advertisement
+      metadata:
+        name: storage
+        namespace: metallb-system
+      spec:
+        ipAddressPools:
+        - storage
+        interfaces:
+        - enp1s0.21
+  tags: rhoso-ng-l2-advertisements
+
+- name: "[L2 Advertisements] tenant network L2 Advertisements"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: metallb.io/v1beta1
+      kind: L2Advertisement
+      metadata:
+        name: tenant
+        namespace: metallb-system
+      spec:
+        ipAddressPools:
+        - tenant
+        interfaces:
+        - enp1s0.22
+  tags: rhoso-ng-l2-advertisements

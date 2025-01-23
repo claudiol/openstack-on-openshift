@@ -6,4 +6,9 @@
   import_tasks: rhoso-ng-nncp-w2.yml
 - name: "[DEMO OpenStack Network Isolation Worker 3] Create openstack network isolation resources"
   import_tasks: rhoso-ng-nncp-w3.yml
-
+- name: "[DEMO OpenStack Network Isolation] configure a nad resource for each isolated network to attach a service pod to the network"
+  import_tasks: rhoso-ng-attach.yml
+- name: "[DEMO OpenStack Network Isolation] configure the MetalLB IP address range "
+  import_tasks: rhoso-ng-lb-ip-address-pools.yml
+- name: "[DEMO OpenStack Network Isolation] Configure a L2Advertisement resource which will define which node advertises a service to the local network "
+  import_tasks: rhoso-ng-metal-lb-l2-advertisements.yml

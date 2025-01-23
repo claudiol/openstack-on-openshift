@@ -23,6 +23,7 @@
               "range_end": "172.22.0.70"
             }
           }
+  tags: rhoso-ng-attach
 
 - name: "[Net Attach] Attach pods to the ctlplane network"
   kubernetes.core.k8s:
@@ -47,6 +48,7 @@
               "range_end": "172.17.0.70"
             }
           }
+  tags: rhoso-ng-attach
 
 - name: "[Net Attach] Attach pods to the storage network"
   kubernetes.core.k8s:
@@ -71,6 +73,7 @@
               "range_end": "172.18.0.70"
             }
           }
+  tags: rhoso-ng-attach
 
 - name: "[Net Attach] Attach pods to the tenant network"
   kubernetes.core.k8s:
@@ -95,6 +98,7 @@
               "range_end": "172.19.0.70"
             }
           }
+  tags: rhoso-ng-attach
 
 - name: "[Net Attach] Attach pods to the external network"
   kubernetes.core.k8s:
@@ -119,3 +123,4 @@
               "range_end": "192.168.123.110"
               }
             }
+  tags: rhoso-ng-attach
