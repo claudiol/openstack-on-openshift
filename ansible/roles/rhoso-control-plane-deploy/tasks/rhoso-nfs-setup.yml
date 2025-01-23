@@ -1,0 +1,49 @@
+- name: "[ControlPlane NFS] Create RHOSO Control Plane NFS Setup"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0777'
+  with_items:
+    - /nfs/cinder
+    - /nfs/glance
+    - /nfs/pv6
+    - /nfs/pv7
+    - /nfs/pv8
+    - /nfs/pv9
+    - /nfs/pv10
+    - /nfs/pv11
+
+- name: "[ControlPlane NFS Setup] Create Storage Class"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: storage.k8s.io/v1
+      kind: StorageClass
+      metadata:
+         name: nfs
+      provisioner: kubernetes.io/no-provisioner
+      reclaimPolicy: Delete
+  tags: rhoso-nfs-setup
+
+- name: "[ControlPlane NFS Setup] Create Persistent Volumes"
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: PersistentVolume
+      metadata:
+        name: nfs-pv{{ item }}
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        - ReadWriteMany
+        capacity:
+          storage: 100Gi
+        nfs:
+          path: /nfs/pv{{ item }}
+          server: 192.168.123.100
+        persistentVolumeReclaimPolicy: Delete
+        storageClassName: nfs
+        volumeMode: Filesystem
+  with_sequence: count=10
+  tags: rhoso-nfs-setup
