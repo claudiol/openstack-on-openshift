@@ -2,4 +2,8 @@
 # tasks file for rhoso-control-plane-deploy
 - name: "[DEMO Control Plane Deploy] Set up secrets for Control Plane"
   import_tasks: rhoso-ctlplane-secret.yml
+- name: "[DEMO Control Plane Deploy] Set up secrets for LibVirt"
+  import_tasks: rhoso-libvirt-secret.yaml
+- name: "[DEMO Control Plane Deploy] Set up NFS"
+  import_tasks: rhoso-nfs-setup.yml
 
