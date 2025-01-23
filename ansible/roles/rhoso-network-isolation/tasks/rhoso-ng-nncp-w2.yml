@@ -72,4 +72,4 @@
         nodeSelector:
           kubernetes.io/hostname: ocp4-worker2.aio.example.com 
           node-role.kubernetes.io/worker: ""
-    tags: rhoso-network-isolation
+  tags: rhoso-network-isolation

@@ -8,6 +8,16 @@
         name: openstack-operators
   tags: openstack-operator-deploy
 
+- name: "[OPENSTACK OPERATOR] Creating openstack-operators namespace" 
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: openstack
+  tags: openstack-operator-deploy
+
 - name: "[OPENSTACK OPERATOR] Creating operator group for openstack operator"
   kubernetes.core.k8s:
     state: present

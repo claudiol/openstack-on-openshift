@@ -3,3 +3,4 @@
   roles:
     - rhoso-prereqs 
     - rhoso-openstack-operator-deploy
+    - rhoso-network-isolation

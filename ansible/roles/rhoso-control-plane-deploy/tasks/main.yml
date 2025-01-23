@@ -1,0 +1,5 @@
+---
+# tasks file for rhoso-control-plane-deploy
+- name: "[DEMO Control Plane Deploy] Set up secrets for Control Plane"
+  import_tasks: rhoso-ctlplane-secret.yml
+
