@@ -6,4 +6,6 @@
   import_tasks: rhoso-libvirt-secret.yaml
 - name: "[DEMO Control Plane Deploy] Set up NFS"
   import_tasks: rhoso-nfs-setup.yml
+- name: "[DEMO Control Plane Deploy] Deploy RHOSO Control Plane"
+  import_tasks: rhoso-ctlplane-deploy.yml
 

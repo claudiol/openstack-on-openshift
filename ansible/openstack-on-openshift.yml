@@ -4,3 +4,4 @@
     - rhoso-prereqs 
     - rhoso-openstack-operator-deploy
     - rhoso-network-isolation
+    - rhoso-control-plane-deploy
