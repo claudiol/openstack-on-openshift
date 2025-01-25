@@ -1,4 +1,15 @@
 # tasks file for rh-osp-demo-prereqs/certmanager
+- name: "Check if it's opentlc environment in Azure"
+  ansible.builtin.command: 
+    cmd: "oc get infrastructures.config.openshift.io cluster -o jsonpath='{.status.apiServerURL}'"
+  register: opentlc
+  tags: rhoso-prereqs
+
+- name: debug
+  ansible.builtin.debug:
+    var: opentlc
+  tags: rhoso-prereqs
+
 - name: "[CERTMANAGER] Create certmanager namespace"
   kubernetes.core.k8s:
     state: present
@@ -7,6 +18,7 @@
       kind: Namespace
       metadata:
         name: cert-manager-operator
+  when: '"opentlc" not in opentlc.stdout'
   tags: rhoso-prereqs
 
 - name: "[CERTMANAGER] Create certmanager operator group"
@@ -22,6 +34,7 @@
         targetNamespaces:
         - cert-manager-operator
         upgradeStrategy: Default
+  when: '"opentlc" not in opentlc.stdout'
   tags: rhoso-prereqs
 
 - name: "[CERTMANAGER] Create certmanager operator"
@@ -50,6 +63,7 @@
   until: 'output.rc == 0'
   retries: 40
   delay: 4
+  when: '"opentlc" not in opentlc.stdout'
   tags: rhoso-prereqs
 
 - name: "[CERTMANAGER] Wait and confirm status for certmanager operator"
@@ -59,4 +73,5 @@
   until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
   retries: 40
   delay: 4
+  when: '"opentlc" not in opentlc.stdout'
   tags: rhoso-prereqs

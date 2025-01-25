@@ -72,7 +72,7 @@
   ansible.builtin.command: 
     cmd: 'oc get daemonset -n metallb-system speaker -o custom-columns=test:.status.numberReady'
   register: output
-  until: '(output.stdout_lines | length > 1) and "3" in output.stdout_lines[1]'
+  until: '(output.stdout_lines | length > 1) and "2" in output.stdout_lines[1]'
   retries: 40
   delay: 4
   tags: rhoso-prereqs
