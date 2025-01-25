@@ -7,6 +7,7 @@
       kind: Namespace
       metadata:
         name: metallb-system
+  tags: rhoso-prereqs
 
 - name: "[METALLB] Create metallb operator group"
   kubernetes.core.k8s:
@@ -17,6 +18,7 @@
       metadata:
         name: metallb-operator
         namespace: metallb-system
+  tags: rhoso-prereqs
 
 - name: "[METALLB] Create metallb operator"
   kubernetes.core.k8s:
@@ -32,6 +34,7 @@
         name: metallb-operator
         source: redhat-operators
         sourceNamespace: openshift-marketplace
+  tags: rhoso-prereqs
 
 - name: "[METALLB] Wait and confirm status for metallb operator"
   ansible.builtin.command: 
@@ -40,6 +43,7 @@
   until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
   retries: 40
   delay: 4
+  tags: rhoso-prereqs
 
 - name: "[METALLB] Create metallb instance resource"
   kubernetes.core.k8s:
@@ -53,6 +57,7 @@
       spec:
         nodeSelector:
           node-role.kubernetes.io/worker: ""
+  tags: rhoso-prereqs
 
 - name: "[METALLB] Wait and confirm status for metallb instance resource"
   ansible.builtin.command: 
@@ -61,6 +66,7 @@
   until: '(output.stdout_lines | length > 1) and "1" in output.stdout_lines[1]'
   retries: 40
   delay: 4
+  tags: rhoso-prereqs
 
 - name: "[METALLB] Wait and confirm status for metallb daemonset speaker"
   ansible.builtin.command: 
@@ -69,3 +75,4 @@
   until: '(output.stdout_lines | length > 1) and "3" in output.stdout_lines[1]'
   retries: 40
   delay: 4
+  tags: rhoso-prereqs

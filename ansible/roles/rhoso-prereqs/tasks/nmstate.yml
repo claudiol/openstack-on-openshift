@@ -14,6 +14,7 @@
       spec:
         finalizers:
           - kubernetes
+  tags: rhoso-prereqs
 
 - name: "[NMSTATE] Create nmstate operator group"
   kubernetes.core.k8s:
@@ -29,6 +30,7 @@
       spec:
         targetNamespaces:
           - openshift-nmstate
+  tags: rhoso-prereqs
 
 - name: "[NMSTATE] Deploy nmstate operator"
   kubernetes.core.k8s:
@@ -47,6 +49,7 @@
         name: kubernetes-nmstate-operator
         source: redhat-operators
         sourceNamespace: openshift-marketplace
+  tags: rhoso-prereqs
 
 - name: "[NMSTATE] Wait and confirm status for nmstate operator"
   ansible.builtin.command: 
@@ -55,6 +58,7 @@
   until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
   retries: 40
   delay: 4
+  tags: rhoso-prereqs
 
 - name: "[NMSTATE] Create nmstate instance of the nmstate operator"
   kubernetes.core.k8s:
@@ -64,3 +68,4 @@
       kind: NMState
       metadata:
         name: nmstate
+  tags: rhoso-prereqs
