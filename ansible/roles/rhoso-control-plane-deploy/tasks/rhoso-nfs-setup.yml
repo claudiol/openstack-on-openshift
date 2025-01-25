@@ -12,6 +12,7 @@
     - /nfs/pv9
     - /nfs/pv10
     - /nfs/pv11
+  tags: rhoso-nfs-setup
 
 - name: "[ControlPlane NFS Setup] Create Storage Class"
   kubernetes.core.k8s:

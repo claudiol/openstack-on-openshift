@@ -451,3 +451,4 @@
               replicas: 0
               networkAttachments:
                 - designate
+  tags: rhoso-control-plane-deploy
