@@ -1,6 +1,6 @@
 ---
 # tasks file for rhosp-ng-nncp-w2
-- name: "[NNCP W1] Create NNCP for Worker2"
+- name: "[NNCP W2] Create NNCP for Worker2"
   kubernetes.core.k8s:
     state: present
     definition:
