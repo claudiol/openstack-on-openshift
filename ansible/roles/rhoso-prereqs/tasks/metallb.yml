@@ -37,10 +37,10 @@
   tags: rhoso-prereqs
 
 - name: "[METALLB] Wait and confirm status for metallb operator"
-  ansible.builtin.command: 
-    cmd: 'oc get clusterserviceversion -n metallb-system  -o custom-columns=Name:.metadata.name,Phase:.status.phase'
+  ansible.builtin.shell: 
+    cmd: 'oc get clusterserviceversion -n metallb-system  -o custom-columns=Name:.metadata.name,Phase:.status.phase| grep metallb-operator'
   register: output
-  until: '(output.stdout_lines | length > 1) and "Succeeded" in output.stdout_lines[1]'
+  until: '"Succeeded" in output.stdout_lines[0]'
   retries: 40
   delay: 4
   tags: rhoso-prereqs
@@ -72,7 +72,7 @@
   ansible.builtin.command: 
     cmd: 'oc get daemonset -n metallb-system speaker -o custom-columns=test:.status.numberReady'
   register: output
-  until: '(output.stdout_lines | length > 1) and "2" in output.stdout_lines[1]'
+  until: '(output.stdout_lines | length > 1) and (output.stdout_lines[1] | int) > 0'
   retries: 40
   delay: 4
   tags: rhoso-prereqs
